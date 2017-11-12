@@ -2,7 +2,8 @@
   (:use compojure.core
         ring.middleware.json
         ring.util.response)
-  (:require [compojure.route :as route]
+  (:require
+            [compojure.route :as route]
             [mybank.view :as view]
             [clj-http.client :as client]
             [clojure.data.json :as json]
@@ -36,9 +37,20 @@
 
 (defroutes my_routes
   (GET "/" [] (view/index-page) )
-  (GET "/user" {{:keys [user-id]} :session}
-    (str "The current user is " user-id))
-  (GET "/view-request" request (str :query-string) )
+  
+  (GET "/math" {params :query-params}  []
+;    (get params :a)
+;    (get params :b)
+    (println {params :query-params})
+    (str (get params :a) (get params :b)))
+
+  (GET "/aaa" params (str params))
+  (GET "/hey" request (str {request :query-string}))
+
+  (GET "/query" request (str (request :query-string)))
+
+  (GET "/view-request" request (str request))
+
   (GET "/rest" [] (response {:email "sven@malvik.de"}))
   (GET "/ip" [] (handler "hey"))
   (GET "/test" [par] (response {:par1 par, :par2 "hey"}))
@@ -48,7 +60,6 @@
   (GET "/user/:id" [id]
     (str "<h1>Hello user " id "</h1>"))
   (route/resources "/"))
-
 
 
 (def app (wrap-json-response my_routes))
