@@ -12,6 +12,10 @@
                  [ring/ring-json "0.5.0-beta1"]
                  [hiccup/hiccup "2.0.0-alpha1"]
                  [compojure "1.6.0"]
+                 [net.htmlparser.jericho/jericho-html "3.1"]
                  [org.clojure/data.json "0.2.6"]
-                 [clj-http "0.6.0"]
-                 ])
+                 [hickory "0.7.1"]
+                 [clj-http "3.7.0"]
+                 [ring/ring-jetty-adapter "1.6.3"]]
+  :main mybank.core
+  :aot [mybank.core])
